@@ -1602,7 +1602,7 @@ with tabs[4]:
             elif val == "中": return "background-color: #ffe4b3; color: #c70;"
             else: return "background-color: #fff4cc; color: #770;"
         st.dataframe(
-            risks.style.applymap(color_grade, subset=["등급"]),
+            risks.style.map(color_grade, subset=["등급"]),
             use_container_width=True, hide_index=True, height=400
         )
 
