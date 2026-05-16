@@ -314,15 +314,16 @@ st.set_page_config(
 # 한글 및 스타일 (다크/라이트 모드 무관 시인성 확보)
 st.markdown("""
 <style>
+    /* v3.6.3: React DOM 재조정 충돌 방지 — 외관 스타일만 적용, 내부 구조 강제 금지 */
     .main > div { padding-top: 1rem; }
     .block-container { padding-top: 2rem; padding-bottom: 2rem; }
 
-    /* KPI 카드 컨테이너 — 간격만 조정 (DOM 구조 유지) */
+    /* KPI 카드 컨테이너 간격 */
     [data-testid="stHorizontalBlock"] {
         gap: 10px;
     }
 
-    /* KPI 카드 자체 — 스타일링만, 레이아웃 강제 없음 */
+    /* KPI 카드 외관 (배경·테두리·여백만) */
     [data-testid="stMetric"] {
         background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
         padding: 14px 12px;
@@ -330,72 +331,34 @@ st.markdown("""
         border-left: 4px solid #1F4E78;
         box-shadow: 0 1px 3px rgba(0,0,0,0.08);
         min-height: 110px;
-        text-align: center;
-        box-sizing: border-box;
-    }
-    [data-testid="stMetric"] > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
     }
 
-    /* 라벨 중앙정렬 */
-    [data-testid="stMetricLabel"],
-    [data-testid="stMetricLabel"] > div,
-    [data-testid="stMetricLabel"] * {
-        text-align: center !important;
-        justify-content: center !important;
-        width: 100% !important;
+    /* 라벨 색상·굵기 */
+    [data-testid="stMetricLabel"] {
+        color: #1F4E78;
+        font-weight: 600;
+        font-size: 14px;
     }
 
-    /* 값 중앙정렬 + 길이별 자동 축소 */
+    /* 값 색상·굵기·크기 */
     [data-testid="stMetricValue"] {
-        font-size: clamp(18px, 1.8vw, 26px) !important;
-        white-space: nowrap !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-        line-height: 1.2 !important;
-        text-align: center !important;
-        justify-content: center !important;
-        width: 100% !important;
+        color: #C00000;
+        font-weight: 800;
+        font-size: clamp(18px, 1.8vw, 26px);
     }
-    [data-testid="stMetricValue"] > div {
-        white-space: nowrap !important;
-        overflow: visible !important;
-        text-align: center !important;
-        justify-content: center !important;
-        width: 100% !important;
-    }
-    /* 라벨 (작은 글씨) — 기존 유지 */
-    [data-testid="stMetric"] label,
-    [data-testid="stMetricLabel"],
-    [data-testid="stMetricLabel"] * {
-        color: #1F4E78 !important;
-        font-weight: 600 !important;
-        opacity: 1 !important;
-        font-size: 14px !important;
-    }
-    /* 값 (큰 글씨) — 강조 색상으로 변경 */
-    [data-testid="stMetricValue"],
-    [data-testid="stMetricValue"] * {
-        color: #C00000 !important;
-        font-weight: 800 !important;
-    }
-    [data-testid="stMetricDelta"],
-    [data-testid="stMetricDelta"] * {
-        color: #1a1a1a !important;
-        font-weight: 600 !important;
+
+    /* delta 색상 */
+    [data-testid="stMetricDelta"] {
+        color: #1a1a1a;
+        font-weight: 600;
     }
 
     /* 상단 캡션 시인성 */
     [data-testid="stCaptionContainer"] {
-        color: #9AA5B1 !important;
-        opacity: 1 !important;
+        color: #9AA5B1;
     }
 
-    /* 탭 영역 상단 구분선 (간단 버전) */
+    /* 탭 영역 구분선 */
     div[data-baseweb="tab-list"] {
         border-top: 2px solid #2E75B6;
         border-bottom: 2px solid #2E75B6;
@@ -417,12 +380,7 @@ st.markdown("""
         height: 3px;
     }
 
-    /* 데이터프레임 헤더/셀 다크모드 대응 */
-    .stDataFrame [data-testid="stDataFrameResizable"] {
-        background: #fafbfd;
-    }
-
-    /* success/warning 박스 강조 */
+    /* 알림 박스 강조 */
     [data-testid="stAlert"] {
         font-size: 15px;
         font-weight: 500;
