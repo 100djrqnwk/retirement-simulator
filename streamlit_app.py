@@ -305,7 +305,7 @@ def calc_fv_phased(monthly_p1, monthly_p2, p1_years, p2_years, monthly_rate):
 # 페이지 설정
 # ============================================================
 st.set_page_config(
-    page_title="노후설계 시뮬레이터",
+    page_title="노후설계",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -388,7 +388,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("📊 노후설계 시뮬레이터")
+st.title("📊 노후설계")
 st.caption("입력값을 변경하면 모든 결과가 실시간 재계산됩니다. · 기반: 작업지시서 v3.5 · Choby 부부")
 
 # ============================================================
